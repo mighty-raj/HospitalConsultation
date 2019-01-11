@@ -11,15 +11,23 @@ public class ConsultQueue {
     // Creating empty priority queue
     //PriorityQueue<PatientRecord> pQueue = new PriorityQueue<PatientRecord>(Collections.reverseOrder());
 
-    PriorityQueue<PatientRecord> pQueue = new PriorityQueue<PatientRecord>(new Comparator<PatientRecord>() {
-        public int compare(PatientRecord a, PatientRecord b) {
-            return b.getpAge() - a.getpAge();
-        }
-    });
+    PriorityQueue<PatientRecord> pQueue;
+    DoublyLinkedList patientList;
+
+    public ConsultQueue(DoublyLinkedList plist) {
+
+        pQueue = new PriorityQueue<PatientRecord>(new Comparator<PatientRecord>() {
+            public int compare(PatientRecord a, PatientRecord b) {
+                return b.getpAge() - a.getpAge();
+            }
+        });
+        patientList = plist;
+
+    }
 
     PatientRecord getPatientRecord(int patientId) {
 
-        PatientRecord pr = null;
+        PatientRecord pr = patientList.getPatientRecord(patientId);
         return pr;
     }
 
@@ -32,9 +40,11 @@ public class ConsultQueue {
     }
 
     void nextPatient(){
+        PatientRecord pr = null;
+
         System.out.println();
-        System.out.println("Next Patient in queue: " + pQueue.peek());
-        dequeuePatient(0000);
+        System.out.println("Next Patient in queue: " + pr.toString());
+        dequeuePatient(pr.getpId());
     }
 
     void dequeuePatient(int patientId) {
@@ -49,13 +59,22 @@ public class ConsultQueue {
     void displayQueue(){
 
         Object[] arr = pQueue.toArray();
-        System.out.println("Value in array: ");
+        System.out.println();
+        System.out.println("Patient Consultation Queue in order: ");
+        System.out.println();
 
-        int seqNo = 1;
+        int seqNo;
         for (int i = 0; i < arr.length; i++){
 
-            seqNo+=i;
-            System.out.println( seqNo + ": " + arr[i].toString());
+            seqNo = i +1;
+
+            PatientRecord patient = (PatientRecord) arr[i];
+
+            System.out.println( seqNo + ": "
+                    + patient.getpId() + ", "
+                    + patient.getpName() + ", "
+                    + patient.getpAge()
+            );
     }
 
 }

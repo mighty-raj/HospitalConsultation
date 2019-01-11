@@ -6,10 +6,15 @@ public class PatientRecord {
     private int pAge;
     private int pId;
 
-    public PatientRecord(String pName, int pAge, int pId) {
+    private static int incrementer = 110;
+
+
+    public PatientRecord(String pName, int pAge) {
+        incrementer++;
         this.pName = pName;
         this.pAge = pAge;
-        this.pId = pId;
+        this.pId = incrementer;
+
     }
 
     public String getpName() {
@@ -32,9 +37,9 @@ public class PatientRecord {
         return pId;
     }
 
-    public void setpId(int pId) {
+    /*public void setpId(int pId) {
         this.pId = pId;
-    }
+    }*/
 
     @Override
     public String toString() {
