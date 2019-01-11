@@ -3,10 +3,10 @@ package com.bitspilani.mtech.dsa.hospitalconsultation;
 public class PatientRecord {
 
     private String pName;
-    private String pAge;
-    private String pId;
+    private int pAge;
+    private int pId;
 
-    public PatientRecord(String pName, String pAge, String pId) {
+    public PatientRecord(String pName, int pAge, int pId) {
         this.pName = pName;
         this.pAge = pAge;
         this.pId = pId;
@@ -20,19 +20,19 @@ public class PatientRecord {
         this.pName = pName;
     }
 
-    public String getpAge() {
+    public int getpAge() {
         return pAge;
     }
 
-    public void setpAge(String pAge) {
+    public void setpAge(int pAge) {
         this.pAge = pAge;
     }
 
-    public String getpId() {
+    public int getpId() {
         return pId;
     }
 
-    public void setpId(String pId) {
+    public void setpId(int pId) {
         this.pId = pId;
     }
 

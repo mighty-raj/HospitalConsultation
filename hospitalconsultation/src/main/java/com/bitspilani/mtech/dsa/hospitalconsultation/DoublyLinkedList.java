@@ -128,10 +128,40 @@ public class DoublyLinkedList {
         }
     }
 
+    public PatientRecord getPatientRecord(int patientId) {
+
+        PatientRecord pr = null;
+
+        if (size == 0) {
+            System.out.print("List is Empty\n");
+            return null;
+        }
+
+        PatientNode ptr = start;
+
+        if (ptr.patient.getpId() == patientId) {
+            pr = ptr.patient;
+        }
+
+        ptr = start.getLinkNext();
+        while (ptr.getLinkNext() != null) {
+
+            if (ptr.patient.getpId() == patientId)
+                pr = ptr.patient;
+
+            ptr = ptr.getLinkNext();
+        }
+
+        if (ptr.patient.getpId() == patientId)
+            pr= ptr.patient;
+
+        return pr;
+    }
+
     /* Function to display status of list */
     public void display()
     {
-        System.out.print("\nDoubly Linked List = ");
+        System.out.print("\nPatient List = ");
         if (size == 0)
         {
             System.out.print("empty\n");
