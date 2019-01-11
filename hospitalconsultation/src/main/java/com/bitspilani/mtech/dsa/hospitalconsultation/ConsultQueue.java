@@ -40,10 +40,12 @@ public class ConsultQueue {
     }
 
     void nextPatient(){
-        PatientRecord pr = null;
+
+        PatientRecord pr = pQueue.peek();
 
         System.out.println();
         System.out.println("Next Patient in queue: " + pr.toString());
+
         dequeuePatient(pr.getpId());
     }
 

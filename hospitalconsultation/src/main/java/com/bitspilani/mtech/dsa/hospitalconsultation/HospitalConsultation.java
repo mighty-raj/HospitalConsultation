@@ -10,23 +10,34 @@ public class HospitalConsultation {
     public static void main(String[] args) {
 
         HospitalConsultation hc = new HospitalConsultation();
-        hc.registerPatient("Pradeep", 45);
-        hc.registerPatient("Surya", 60);
-        hc.registerPatient("Ajit", 55);
-        hc.registerPatient("Mary", 64);
-        hc.registerPatient("Radha", 56);
+        int a = hc.registerPatient("Pradeep", 45);
+        hc.cq.enqueuePatient(a);
 
+        int b = hc.registerPatient("Surya", 60);
+        hc.cq.enqueuePatient(b);
+
+        int c = hc.registerPatient("Ajit", 55);
+        hc.cq.enqueuePatient(c);
+
+        int d = hc.registerPatient("Mary", 64);
+        hc.cq.enqueuePatient(d);
+
+        int e = hc.registerPatient("Radha", 56);
+        hc.cq.enqueuePatient(e);
+
+
+        //Printing Consultation queue to console
         System.out.println("Size of Consult Queue: " + hc.patientDList.size);
+        hc.cq.displayQueue();
 
-        //hc.cq.displayQueue();
-        //System.out.println(hc.cq.getPatientRecord(111).toString());
 
-        hc.cq.enqueuePatient(111);
-        hc.cq.enqueuePatient(112);
-        hc.cq.enqueuePatient(113);
-        hc.cq.enqueuePatient(114);
-        hc.cq.enqueuePatient(115);
+        //Testing Dequeing a patient
+        hc.cq.dequeuePatient(b);
+        hc.cq.displayQueue();
 
+
+        //Testing Next Patient
+        hc.cq.nextPatient();
         hc.cq.displayQueue();
 
     }
@@ -42,8 +53,6 @@ public class HospitalConsultation {
         } else {
             patientDList.insertAtEnd(patient);
         }
-
-        //cq.enqueuePatient(pId);
 
         return pId;
     }

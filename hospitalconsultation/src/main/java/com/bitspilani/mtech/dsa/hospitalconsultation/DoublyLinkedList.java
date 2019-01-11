@@ -141,13 +141,16 @@ public class DoublyLinkedList {
 
         if (ptr.patient.getpId() == patientId) {
             pr = ptr.patient;
+            return pr;
         }
 
         ptr = start.getLinkNext();
         while (ptr.getLinkNext() != null) {
 
-            if (ptr.patient.getpId() == patientId)
+            if (ptr.patient.getpId() == patientId) {
                 pr = ptr.patient;
+                return pr;
+            }
 
             ptr = ptr.getLinkNext();
         }
