@@ -1,44 +1,56 @@
 package com.bitspilani.mtech.dsa.hospitalconsultation;
 
-import java.util.concurrent.atomic.AtomicLong;
+import java.io.*;
 
 public class HospitalConsultation {
 
-    DoublyLinkedList patientDList = new DoublyLinkedList();
-    ConsultQueue cq = new ConsultQueue(patientDList);
+    DoublyLinkedList patientDList;
+    ConsultQueue cq;
 
     public static void main(String[] args) {
 
+        String inpFilePath = args[0];
+        String outFilePath = args[1];
+
+        if(args.length != 2){
+            System.out.println("Please pass req. arguments, input file path and output file path");
+            System.exit(-1);
+        }
+
         HospitalConsultation hc = new HospitalConsultation();
-        int a = hc.registerPatient("Pradeep", 45);
-        hc.cq.enqueuePatient(a);
+        hc.patientDList = new DoublyLinkedList();
+        hc.cq = new ConsultQueue(hc.patientDList, outFilePath);
 
-        int b = hc.registerPatient("Surya", 60);
-        hc.cq.enqueuePatient(b);
-
-        int c = hc.registerPatient("Ajit", 55);
-        hc.cq.enqueuePatient(c);
-
-        int d = hc.registerPatient("Mary", 64);
-        hc.cq.enqueuePatient(d);
-
-        int e = hc.registerPatient("Radha", 56);
-        hc.cq.enqueuePatient(e);
-
+        hc.readInput(inpFilePath);
 
         //Printing Consultation queue to console
+        System.out.println();
         System.out.println("Size of Consult Queue: " + hc.patientDList.size);
         hc.cq.displayQueue();
 
 
         //Testing Dequeing a patient
-        hc.cq.dequeuePatient(b);
+
+        long dequeStartTime = System.nanoTime();
+        hc.cq.dequeuePatient(113);
+        long dequeEndTime = System.nanoTime();
+        long totalDequeTime = dequeEndTime - dequeStartTime;
+        System.out.println();
+        System.out.println("Deque Time 113: " + totalDequeTime + " nano secs");
+
+
+        long displayQueueStartTime = System.nanoTime();
         hc.cq.displayQueue();
+        long displayQueueEndTime = System.nanoTime();
+        long totalDispQTime = displayQueueEndTime - displayQueueStartTime;
+        System.out.println("Display queue Time: " + totalDispQTime + " nano seconds");
 
 
         //Testing Next Patient
         hc.cq.nextPatient();
         hc.cq.displayQueue();
+
+        hc.writeToFile();
 
     }
 
@@ -55,6 +67,47 @@ public class HospitalConsultation {
         }
 
         return pId;
+    }
+
+    public void readInput(String inpFile){
+
+        try(BufferedReader bufferedReader = new BufferedReader(new FileReader(inpFile))) {
+            String line = bufferedReader.readLine();
+
+
+            while(line != null) {
+                //System.out.println(line);
+                String[] lineSplit = line.split(",");
+
+                int a = registerPatient(lineSplit[0], Integer.parseInt(lineSplit[1].trim()));
+
+                long enqueStartTime = System.nanoTime();
+                cq.enqueuePatient(a);
+                long enqueEndTime = System.nanoTime();
+                long totalEnqueTime = enqueEndTime - enqueStartTime;
+                System.out.println("Enque Time " + a + ": " + totalEnqueTime + " nano secs");
+
+                line = bufferedReader.readLine();
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("File Not Found: " + inpFile);
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void writeToFile(){
+
+        try {
+
+            cq.writeToFile();
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
     }
 
 }
