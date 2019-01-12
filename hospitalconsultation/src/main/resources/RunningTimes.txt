@@ -1,0 +1,9 @@
+Enque Time 111: 15932 nano secs
+Enque Time 112: 18375 nano secs
+Enque Time 113: 2134 nano secs
+Enque Time 114: 3067 nano secs
+Enque Time 115: 2503 nano secs
+
+Deque Time 113: 18787 nano secs
+
+Display queue Time: 118732 nano seconds
